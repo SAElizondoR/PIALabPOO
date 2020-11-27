@@ -16,6 +16,13 @@
     
     <dependencies>
         <dependency>
+            <groupId>fcfm</groupId>
+            <artifactId>ConexionBD</artifactId>
+            <version>1.0</version>
+            <scope> system </scope>
+            <systemPath>${project.basedir}/src/main/resources/ConexionBD-1.0.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
