@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td>Dimensión: </td>
-                    <td><input type="text" name="dimension" value="${herramienta.dimension}"></td>
+                    <td><input type="text" name="dimension" value="${herramienta.tamano}"></td>
                 </tr>
                 <tr>
                     <td>Unidades: </td>
