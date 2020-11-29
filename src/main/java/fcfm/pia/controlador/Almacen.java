@@ -14,16 +14,19 @@
  */
 package fcfm.pia.controlador;
 
-import fcfm.conexionbd.ConexionBD;
+import fcfm.pia.modelo.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.*;
+import java.util.List;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class Almacen extends HttpServlet {
-
-    ConexionBD con = new ConexionBD();
+    private Lista lista;
+    
+    @Override
+    public void init() {
+        lista = new Lista();
+    }
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,33 +40,47 @@ public class Almacen extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try(PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Almacen</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Almacen at " + request.getContextPath() + "</h1>");
-            try {
-                Connection cnxObtenida = con.obtenerConexion();
-                Statement dec = cnxObtenida.createStatement();
-                ResultSet rs = dec.executeQuery("select * from productos");
-                ServletContext sc = getServletContext();
-                RequestDispatcher rd = sc.getRequestDispatcher("/src/main/webapp/WEB-INF/listado.jsp");
-                rd.include(request, response);
-
-            }
-            catch(SQLException ex) {
-                StackTraceElement[] pila = ex.getStackTrace();
-                System.out.println("Error al procesar solicitud: ");
-                for (StackTraceElement elem: pila) {
-                    System.out.println(elem.toString());
-                }
-            }
-            out.println("</body>");
-            out.println("</html>");
+        String accion = request.getParameter("accion");
+        
+        if (accion == null) {
+            accion = "Listar";
         }
+        
+        switch (accion) {
+            case "Listar":
+                listarHerramientas(request, response);
+                break;
+            case "Agregar":
+                agregarHerramientas(request, response);
+                break;
+            default:
+                listarHerramientas(request, response);
+        }
+    }
+    
+    private void listarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String filtro = "";
+        String tipofiltro = "";
+        if (request.getParameter("btnfiltro") != null) {
+            filtro = request.getParameter("filtro");
+            tipofiltro = request.getParameter("tipofiltro");
+        }
+        List<Herramienta> vectorLista = lista.listar(filtro, tipofiltro);
+        request.setAttribute("lista", vectorLista);
+        RequestDispatcher desp = request.getRequestDispatcher("index.jsp");
+        desp.forward(request, response);
+    }
+    
+    private void agregarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String nombre = request.getParameter("nombre");
+        String categoria = request.getParameter("categoria");
+        String marca = request.getParameter("marca");
+        String dimension = request.getParameter("dimension");
+        int unidades = Integer.parseInt("unidades");
+        List<Herramienta> vectorLista = lista.agregar(nombre, categoria, marca, dimension, unidades);
+        request.setAttribute("lista", vectorLista);
+        RequestDispatcher desp = request.getRequestDispatcher("index.jsp");
+        desp.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
