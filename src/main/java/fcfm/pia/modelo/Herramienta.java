@@ -15,23 +15,24 @@
 package fcfm.pia.modelo;
 
 public class Herramienta {
-    private String id;
+    private int id;
     private String nombre;
     private String categoria;
     private String marca;
     private String tamano;
+    private int unidades;
 
     /**
      * @return the id
      */
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -89,6 +90,20 @@ public class Herramienta {
      */
     public void setTamano(String tamano) {
         this.tamano = tamano;
+    }
+
+    /**
+     * @return the unidades
+     */
+    public int getUnidades() {
+        return unidades;
+    }
+
+    /**
+     * @param unidades the unidades to set
+     */
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
     }
     
 }

@@ -49,9 +49,7 @@
                     <th>Dimensión</th>
                     <th>Unidades</th>
                     <th>
-                        <form action="agregar.jsp">
-                            <input type="submit" name="accion" value="Agregar">
-                        </form>
+                        <a ${pageContext.request.contextPath}/Almacen?action="IrAgregar">Agregar</a>
                     </th>
                 </tr>
             </thead>
@@ -63,7 +61,10 @@
                     <td>${herramienta.marca}</td>
                     <td>${herramienta.dimension}</td>
                     <td>${herramienta.unidades}</td>
-                    <<td><a href="editar.jsp?id=${herramienta.id}">Editar</a> | <a href="eliminar.jsp?action=ObtenerUno&id=${herramienta.id}">Eliminar</a></td>
+                    <td>
+                        <a ${pageContext.request.contextPath}/Almacen?action="Editar"&id="${herramienta.id}">Editar</a> | 
+                        <a ${pageContext.request.contextPath}/Almacen?action="Eliminar"&id="${herramienta.id}">Eliminar</a>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
