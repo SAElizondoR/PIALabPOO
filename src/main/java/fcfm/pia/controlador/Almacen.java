@@ -53,6 +53,9 @@ public class Almacen extends HttpServlet {
             case "Agregar":
                 agregarHerramientas(request, response);
                 break;
+            case "Eliminar":
+                eliminarHerramientas(request, response);
+                break;
             default:
                 listarHerramientas(request, response);
         }
@@ -78,6 +81,14 @@ public class Almacen extends HttpServlet {
         String dimension = request.getParameter("dimension");
         int unidades = Integer.parseInt("unidades");
         List<Herramienta> vectorLista = lista.agregar(nombre, categoria, marca, dimension, unidades);
+        request.setAttribute("lista", vectorLista);
+        RequestDispatcher desp = request.getRequestDispatcher("index.jsp");
+        desp.forward(request, response);
+    }
+    
+    private void eliminarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        List<Herramienta> vectorLista = lista.eliminar(id);
         request.setAttribute("lista", vectorLista);
         RequestDispatcher desp = request.getRequestDispatcher("index.jsp");
         desp.forward(request, response);
