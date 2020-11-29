@@ -62,7 +62,7 @@
                     <td><c:out value="${herramienta.tamano}"/></td>
                     <td><c:out value="${herramienta.unidades}"/></td>
                     <td>
-                        <a href=${pageContext.request.contextPath}/Almacen?action=Editar&id=${herramienta.id}>Editar</a>
+                        <a href=${pageContext.request.contextPath}/Almacen?action=ObtenerUno&id=${herramienta.id}>Editar</a>
                         | 
                         <a href=${pageContext.request.contextPath}/Almacen?action=Eliminar&id=${herramienta.id}>Eliminar</a>
                     </td>

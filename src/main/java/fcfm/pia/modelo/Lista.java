@@ -105,16 +105,7 @@ public class Lista {
             }
         }
         
-        Herramienta herramienta = new Herramienta();
-        herramienta.setId(lista.size());
-        herramienta.setNombre(nombre);
-        herramienta.setCategoria(categoria);
-        herramienta.setMarca(marca);
-        herramienta.setTamano(dimension);
-        herramienta.setUnidades(unidades);
-        lista.add(herramienta);
-        
-        return lista;
+        return listar("","");
     }
     
     public List<Herramienta> eliminar(int id) {
@@ -147,12 +138,47 @@ public class Lista {
             }
         }
         
-        lista.remove(id - 1);
-        return lista;
+        return listar("","");
     }
     
     public Herramienta obtenerUna(int id) {
-        return lista.get(id - 1);
+        ConexionBD con = new ConexionBD();
+        Connection cnxObtenida = con.obtenerConexion();
+        Herramienta herramienta = new Herramienta();
+        
+        try(Statement sta = cnxObtenida.createStatement()) {
+            ResultSet rs = sta.executeQuery("select * from utiles where id=" + id);
+            herramienta.setId(id);
+            herramienta.setNombre(rs.getString("nombre"));
+            herramienta.setCategoria(rs.getString("categoria"));
+            herramienta.setMarca(rs.getString("marca"));
+            herramienta.setTamano(rs.getString("dimension"));
+            herramienta.setUnidades(rs.getInt("unidades"));
+            sta.close();
+        }
+        catch(SQLException ex) {
+            StackTraceElement[] pila = ex.getStackTrace();
+            System.out.println("Error al eliminar elemento: ");
+            for (StackTraceElement elem: pila) {
+                System.out.println(elem.toString());
+            }
+        }
+        finally {
+            try {
+                if (!cnxObtenida.isClosed()) {
+                    cnxObtenida.close();
+                }
+            }
+            catch(SQLException ex) {
+                StackTraceElement[] pila = ex.getStackTrace();
+                System.out.println("Error al cerrar conexión: ");
+                for (StackTraceElement elem: pila) {
+                    System.out.println(elem.toString());
+                }
+            }
+        }
+        
+        return herramienta;
     }
     
     public List<Herramienta> editar(int id, String nombre, String categoria, String marca, String dimension, int unidades) {
