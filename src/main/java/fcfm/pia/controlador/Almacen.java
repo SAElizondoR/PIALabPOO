@@ -40,7 +40,7 @@ public class Almacen extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String accion = request.getParameter("accion");
+        String accion = request.getParameter("action");
         
         if (accion == null) {
             accion = "Listar";
@@ -50,11 +50,20 @@ public class Almacen extends HttpServlet {
             case "Listar":
                 listarHerramientas(request, response);
                 break;
+            case "IrAgregar":
+                irAgregarHerramientas(request, response);
+                break;
             case "Agregar":
                 agregarHerramientas(request, response);
                 break;
             case "Eliminar":
                 eliminarHerramientas(request, response);
+                break;
+            case "ObtenerUno":
+                obtenerUnaHerramienta(request, response);
+                break;
+            case "Editar":
+                editarHerramientas(request, response);
                 break;
             default:
                 listarHerramientas(request, response);
@@ -74,6 +83,11 @@ public class Almacen extends HttpServlet {
         desp.forward(request, response);
     }
     
+    private void irAgregarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher desp = request.getRequestDispatcher("agregar.jsp");
+        desp.forward(request, response);
+    }
+    
     private void agregarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nombre = request.getParameter("nombre");
         String categoria = request.getParameter("categoria");
@@ -89,6 +103,27 @@ public class Almacen extends HttpServlet {
     private void eliminarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         List<Herramienta> vectorLista = lista.eliminar(id);
+        request.setAttribute("lista", vectorLista);
+        RequestDispatcher desp = request.getRequestDispatcher("index.jsp");
+        desp.forward(request, response);
+    }
+    
+    private void obtenerUnaHerramienta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Herramienta herramienta = lista.obtenerUna(id);
+        request.setAttribute("herramienta", herramienta);
+        RequestDispatcher desp = request.getRequestDispatcher("editar.jsp");
+        desp.forward(request, response);
+    }
+    
+    private void editarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String nombre = request.getParameter("nombre");
+        String categoria = request.getParameter("categoria");
+        String marca = request.getParameter("marca");
+        String dimension = request.getParameter("dimension");
+        int unidades = Integer.parseInt("unidades");
+        List<Herramienta> vectorLista = lista.editar(id, nombre, categoria, marca, dimension, unidades);
         request.setAttribute("lista", vectorLista);
         RequestDispatcher desp = request.getRequestDispatcher("index.jsp");
         desp.forward(request, response);
