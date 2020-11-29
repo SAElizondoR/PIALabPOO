@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Editar herramienta</h1>
-        <form action=Almacen?accion=Editar>
+        <form action=Almacen>
             <table>
                 <tr>
                     <td>Nombre: </td>
@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td>Marca: </td>
-                    <td><input type="text" name="nombre" value=${herramienta.marca}></td>
+                    <td><input type="text" name="marca" value=${herramienta.marca}></td>
                 </tr>
                 <tr>
                     <td>Dimensión: </td>

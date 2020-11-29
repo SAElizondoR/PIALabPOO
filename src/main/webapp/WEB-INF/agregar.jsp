@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Registro de herramienta</h1>
-        <form action="Agregar">
+        <form action="Almacen">
             <table>
                 <tr>
                     <td>Nombre:</td>

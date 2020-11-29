@@ -49,6 +49,9 @@ public class Almacen extends HttpServlet {
         if (request.getParameter("btnmodificar") != null) {
             accion = "Editar";
         }
+        else if (request.getParameter("btnagregar") != null) {
+            accion = "Agregar";
+        }
         switch (accion) {
             case "Listar":
                 listarHerramientas(request, response);
@@ -94,7 +97,7 @@ public class Almacen extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String marca = request.getParameter("marca");
         String dimension = request.getParameter("dimension");
-        int unidades = Integer.parseInt("unidades");
+        int unidades = Integer.parseInt(request.getParameter("unidades"));
         List<Herramienta> vectorLista = lista.agregar(nombre, categoria, marca, dimension, unidades);
         request.setAttribute("vectorlista", vectorLista);
         RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/listar.jsp");
