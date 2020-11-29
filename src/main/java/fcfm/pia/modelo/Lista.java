@@ -29,7 +29,6 @@ public class Lista {
         ConexionBD con = new ConexionBD();
         Connection cnxObtenida = con.obtenerConexion();
         lista = new ArrayList<>();
-        Herramienta herramienta = new Herramienta();
         String cadenaQuery = "select * from utiles";
         
         try(Statement sta = cnxObtenida.createStatement()) {
@@ -38,6 +37,7 @@ public class Lista {
             }
             try (ResultSet rs = sta.executeQuery(cadenaQuery)) {
                 while (rs.next()) {
+                    Herramienta herramienta = new Herramienta();
                     herramienta.setId(rs.getInt("id"));
                     herramienta.setNombre(rs.getString("nombre"));
                     herramienta.setCategoria(rs.getString("categoria"));
