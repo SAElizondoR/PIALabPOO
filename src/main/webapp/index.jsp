@@ -49,7 +49,7 @@
                     <th>Dimensión</th>
                     <th>Unidades</th>
                     <th>
-                        <a href=${pageContext.request.contextPath}/Almacen?action="IrAgregar">Agregar</a>
+                        <a href=${pageContext.request.contextPath}/Almacen?action=IrAgregar>Agregar</a>
                     </th>
                 </tr>
             </thead>
@@ -62,8 +62,8 @@
                     <td>${herramienta.tamano}</td>
                     <td>${herramienta.unidades}</td>
                     <td>
-                        <a href=${pageContext.request.contextPath}/Almacen?action="Editar"&id="${herramienta.id}">Editar</a> | 
-                        <a href=${pageContext.request.contextPath}/Almacen?action="Eliminar"&id="${herramienta.id}">Eliminar</a>
+                        <a href=${pageContext.request.contextPath}/Almacen?action=Editar&id="${herramienta.id}">Editar</a> | 
+                        <a href=${pageContext.request.contextPath}/Almacen?action=Eliminar&id="${herramienta.id}">Eliminar</a>
                     </td>
                 </tr>
             </c:forEach>

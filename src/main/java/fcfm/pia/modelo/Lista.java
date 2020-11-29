@@ -46,7 +46,6 @@ public class Lista {
                     herramienta.setUnidades(rs.getInt("unidades"));
                     lista.add(herramienta);
                 }
-                cnxObtenida.close();
                 sta.close();
             }
         }
@@ -55,6 +54,20 @@ public class Lista {
             System.out.println("Error al listar: ");
             for (StackTraceElement elem: pila) {
                 System.out.println(elem.toString());
+            }
+        }
+        finally {
+            try {
+                if (!cnxObtenida.isClosed()) {
+                    cnxObtenida.close();
+                }
+            }
+            catch(SQLException ex) {
+                StackTraceElement[] pila = ex.getStackTrace();
+                System.out.println("Error al cerrar conexión: ");
+                for (StackTraceElement elem: pila) {
+                    System.out.println(elem.toString());
+                }
             }
         }
         
@@ -68,7 +81,6 @@ public class Lista {
         try(Statement sta = cnxObtenida.createStatement()) {
             sta.executeUpdate("insert into utiles (nombre,categoria,marca,dimension,unidades) values('" + nombre + "','" + categoria + "','" + marca + "','" +
                     dimension + "','" + unidades + "')");
-            cnxObtenida.close();
             sta.close();
         }
         catch(SQLException ex) {
@@ -76,6 +88,20 @@ public class Lista {
             System.out.println("Error al agregar elemento: ");
             for (StackTraceElement elem: pila) {
                 System.out.println(elem.toString());
+            }
+        }
+        finally {
+            try {
+                if (!cnxObtenida.isClosed()) {
+                    cnxObtenida.close();
+                }
+            }
+            catch(SQLException ex) {
+                StackTraceElement[] pila = ex.getStackTrace();
+                System.out.println("Error al cerrar conexión: ");
+                for (StackTraceElement elem: pila) {
+                    System.out.println(elem.toString());
+                }
             }
         }
         
@@ -97,7 +123,6 @@ public class Lista {
         
         try(Statement sta = cnxObtenida.createStatement()) {
             sta.executeUpdate("delete from utiles where id=" + id);
-            cnxObtenida.close();
             sta.close();
         }
         catch(SQLException ex) {
@@ -105,6 +130,20 @@ public class Lista {
             System.out.println("Error al eliminar elemento: ");
             for (StackTraceElement elem: pila) {
                 System.out.println(elem.toString());
+            }
+        }
+        finally {
+            try {
+                if (!cnxObtenida.isClosed()) {
+                    cnxObtenida.close();
+                }
+            }
+            catch(SQLException ex) {
+                StackTraceElement[] pila = ex.getStackTrace();
+                System.out.println("Error al cerrar conexión: ");
+                for (StackTraceElement elem: pila) {
+                    System.out.println(elem.toString());
+                }
             }
         }
         
@@ -123,7 +162,6 @@ public class Lista {
         try(Statement sta = cnxObtenida.createStatement()) {
             sta.executeUpdate("update utiles set nombre='" + nombre + "',categoria='" + categoria + "',marca='" + marca + "', dimension='" + dimension +
                     "',unidades='" + unidades + "' where id="+ id);
-            cnxObtenida.close();
             sta.close();
         }
         catch(SQLException ex) {
@@ -131,6 +169,20 @@ public class Lista {
             System.out.println("Error al eliminar elemento: ");
             for (StackTraceElement elem: pila) {
                 System.out.println(elem.toString());
+            }
+        }
+        finally {
+            try {
+                if (!cnxObtenida.isClosed()) {
+                    cnxObtenida.close();
+                }
+            }
+            catch(SQLException ex) {
+                StackTraceElement[] pila = ex.getStackTrace();
+                System.out.println("Error al cerrar conexión: ");
+                for (StackTraceElement elem: pila) {
+                    System.out.println(elem.toString());
+                }
             }
         }
         

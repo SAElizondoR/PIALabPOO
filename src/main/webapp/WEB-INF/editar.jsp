@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Editar herramienta</h1>
-        <form action="Editar">
+        <form action=Editar>
             <table>
                 <tr>
                     <td>Nombre: </td>

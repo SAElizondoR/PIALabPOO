@@ -41,16 +41,18 @@ public class Almacen extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String accion = request.getParameter("action");
+        System.out.println(accion);
         
         if (accion == null) {
             accion = "Listar";
         }
-        
+        System.out.println(accion.equals("IrAgregar"));
         switch (accion) {
             case "Listar":
                 listarHerramientas(request, response);
                 break;
             case "IrAgregar":
+                System.out.println("olas");
                 irAgregarHerramientas(request, response);
                 break;
             case "Agregar":
@@ -84,7 +86,7 @@ public class Almacen extends HttpServlet {
     }
     
     private void irAgregarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher desp = request.getRequestDispatcher("agregar.jsp");
+        RequestDispatcher desp = request.getRequestDispatcher("WEB-INF/agregar.jsp");
         desp.forward(request, response);
     }
     
