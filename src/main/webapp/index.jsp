@@ -63,6 +63,7 @@
                     <td>${herramienta.marca}</td>
                     <td>${herramienta.dimension}</td>
                     <td>${herramienta.unidades}</td>
+                    <<td><a href="editar.jsp?id=${herramienta.id}">Editar</a> | <a href="eliminar.jsp?action=ObtenerUno&id=${herramienta.id}">Eliminar</a></td>
                 </tr>
             </c:forEach>
         </table>
