@@ -74,7 +74,7 @@ public class Lista {
         return lista;
     }
     
-    public List<Herramienta> agregar(String nombre, String categoria, String marca, String dimension, int unidades) {
+    public void agregar(String nombre, String categoria, String marca, String dimension, int unidades) {
         ConexionBD con = new ConexionBD();
         Connection cnxObtenida = con.obtenerConexion();
         
@@ -105,10 +105,9 @@ public class Lista {
             }
         }
         
-        return listar("","");
     }
     
-    public List<Herramienta> eliminar(int id) {
+    public void eliminar(int id) {
         ConexionBD con = new ConexionBD();
         Connection cnxObtenida = con.obtenerConexion();
         
@@ -138,7 +137,6 @@ public class Lista {
             }
         }
         
-        return listar("","");
     }
     
     public Herramienta obtenerUna(int id) {
@@ -181,7 +179,7 @@ public class Lista {
         return herramienta;
     }
     
-    public List<Herramienta> editar(int id, String nombre, String categoria, String marca, String dimension, int unidades) {
+    public void editar(int id, String nombre, String categoria, String marca, String dimension, int unidades) {
         ConexionBD con = new ConexionBD();
         Connection cnxObtenida = con.obtenerConexion();
         
@@ -212,6 +210,55 @@ public class Lista {
             }
         }
         
-        return listar("","");
+    }
+    
+    public int contar(String que) {
+        ArrayList<String> temp = new ArrayList<>();
+        int j;
+        int n = 0;
+        switch (que) {
+            case "categoria":
+                for (Herramienta i: lista) {
+                    for (j = 0; j < n; j++) {
+                        if (i.getCategoria().equals(temp.get(j))) {
+                            break;
+                        }
+                    }
+                    if (j == n) {
+                        temp.add(i.getCategoria());
+                        n++;
+                    }
+                }
+                break;
+            case "marca":
+                for (Herramienta i: lista) {
+                    for (j = 0; j < n; j++) {
+                        if (i.getMarca().equals(temp.get(j))) {
+                            break;
+                        }
+                    }
+                    if (j == n) {
+                        temp.add(i.getMarca());
+                        n++;
+                    }
+                }
+                break;
+            case "tamano":
+                for (Herramienta i: lista) {
+                    for (j = 0; j < n; j++) {
+                        if (i.getTamano().equals(temp.get(j))) {
+                            break;
+                        }
+                    }
+                    if (j == n) {
+                        temp.add(i.getTamano());
+                        n++;
+                    }
+                }
+                break;
+        }
+        
+        return n;
+        
     }
 }

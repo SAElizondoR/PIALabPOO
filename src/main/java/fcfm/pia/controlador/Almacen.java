@@ -42,15 +42,14 @@ public class Almacen extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String accion = request.getParameter("accion");
         
-        
-        if (accion == null) {
-            accion = "Listar";
-        }
         if (request.getParameter("btnmodificar") != null) {
             accion = "Editar";
         }
         else if (request.getParameter("btnagregar") != null) {
             accion = "Agregar";
+        }
+        if (accion == null) {
+            accion = "Listar";
         }
         switch (accion) {
             case "Listar":
@@ -77,12 +76,18 @@ public class Almacen extends HttpServlet {
     private void listarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String filtro = "";
         String tipofiltro = "";
+        
         if (request.getParameter("btnfiltro") != null) {
             filtro = request.getParameter("filtro");
             tipofiltro = request.getParameter("tipofiltro");
         }
+        
         List<Herramienta> vectorLista = lista.listar(filtro, tipofiltro);
         request.setAttribute("vectorlista", vectorLista);
+        request.setAttribute("tamano", vectorLista.size());
+        request.setAttribute("cantCategorias", lista.contar("categoria"));
+        request.setAttribute("cantMarcas", lista.contar("marca"));
+        request.setAttribute("cantTamanos", lista.contar("tamano"));
         RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/listar.jsp");
         desp.forward(request, response);
     }
@@ -98,23 +103,20 @@ public class Almacen extends HttpServlet {
         String marca = request.getParameter("marca");
         String dimension = request.getParameter("dimension");
         int unidades = Integer.parseInt(request.getParameter("unidades"));
-        List<Herramienta> vectorLista = lista.agregar(nombre, categoria, marca, dimension, unidades);
-        request.setAttribute("vectorlista", vectorLista);
-        RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/listar.jsp");
-        desp.forward(request, response);
+        lista.agregar(nombre, categoria, marca, dimension, unidades);
+        listarHerramientas(request, response);
     }
     
     private void eliminarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        List<Herramienta> vectorLista = lista.eliminar(id);
-        request.setAttribute("vectorlista", vectorLista);
-        RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/listar.jsp");
-        desp.forward(request, response);
+        lista.eliminar(id);
+        listarHerramientas(request, response);
     }
     
     private void obtenerUnaHerramienta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Herramienta herramienta = lista.obtenerUna(id);
+        
         request.setAttribute("herramienta", herramienta);
         RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/editar.jsp");
         desp.forward(request, response);
@@ -127,10 +129,8 @@ public class Almacen extends HttpServlet {
         String marca = request.getParameter("marca");
         String dimension = request.getParameter("dimension");
         int unidades = Integer.parseInt(request.getParameter("unidades"));
-        List<Herramienta> vectorLista = lista.editar(id, nombre, categoria, marca, dimension, unidades);
-        request.setAttribute("vectorlista", vectorLista);
-        RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/listar.jsp");
-        desp.forward(request, response);
+        lista.editar(id, nombre, categoria, marca, dimension, unidades);
+        listarHerramientas(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
