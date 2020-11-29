@@ -12,6 +12,6 @@
         <title>Cargando herramientas...</title>
     </head>
     <body>
-        <jsp:forward page="/Almacen?action=Listar"/>
+        <jsp:forward page="/Almacen"/>
     </body>
 </html>

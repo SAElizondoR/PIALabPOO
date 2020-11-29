@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Editar herramienta</h1>
-        <form action=Editar>
+        <form action=Almacen?accion=Editar>
             <table>
                 <tr>
                     <td>Nombre: </td>
@@ -37,6 +37,7 @@
                 <tr>
                     <td><input type="submit" name="btnmodificar" value="Editar"></td>
                 </tr>
+                <input type="hidden" name="id" value=${herramienta.id}>
             </table>
         </form>
     </body>

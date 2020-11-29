@@ -40,10 +40,14 @@ public class Almacen extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String accion = request.getParameter("action");
+        String accion = request.getParameter("accion");
+        
         
         if (accion == null) {
             accion = "Listar";
+        }
+        if (request.getParameter("btnmodificar") != null) {
+            accion = "Editar";
         }
         switch (accion) {
             case "Listar":
@@ -119,7 +123,7 @@ public class Almacen extends HttpServlet {
         String categoria = request.getParameter("categoria");
         String marca = request.getParameter("marca");
         String dimension = request.getParameter("dimension");
-        int unidades = Integer.parseInt("unidades");
+        int unidades = Integer.parseInt(request.getParameter("unidades"));
         List<Herramienta> vectorLista = lista.editar(id, nombre, categoria, marca, dimension, unidades);
         request.setAttribute("vectorlista", vectorLista);
         RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/listar.jsp");
