@@ -42,6 +42,9 @@ public class Almacen extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String accion = request.getParameter("action");
         
+        if (accion == null) {
+            accion = "Listar";
+        }
         switch (accion) {
             case "Listar":
                 listarHerramientas(request, response);

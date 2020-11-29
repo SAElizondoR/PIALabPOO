@@ -25,7 +25,7 @@
     </head>
     <body>
         <h1>Lista de herramientas</h1>
-        <form action="Listar" method="GET">
+        <form action="Almacen" method="GET">
             <h2>
                 Filtrar: <input type="text" id="filtro" name="filtro">
                 <select name="tipofiltro" id="tipofiltro">
@@ -62,9 +62,9 @@
                     <td><c:out value="${herramienta.tamano}"/></td>
                     <td><c:out value="${herramienta.unidades}"/></td>
                     <td>
-                        <a href=${pageContext.request.contextPath}/Almacen?action=Editar&id="${herramienta.id}">Editar</a>
+                        <a href=${pageContext.request.contextPath}/Almacen?action=Editar&id=${herramienta.id}>Editar</a>
                         | 
-                        <a href=${pageContext.request.contextPath}/Almacen?action=Eliminar&id="${herramienta.id}">Eliminar</a>
+                        <a href=${pageContext.request.contextPath}/Almacen?action=Eliminar&id=${herramienta.id}>Eliminar</a>
                     </td>
                 </tr>
             </c:forEach>
