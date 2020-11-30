@@ -145,7 +145,7 @@
                                         <th>Nombre</th>
                                         <th>Categoría</th>
                                         <th>Marca</th>
-                                        <th>Dimensión</th
+                                        <th></th
                                         <th>Unidades</th>
                                         <th></th>
                                     </tr>
