@@ -28,10 +28,8 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="index.jsp"><i class="fas fa-tachometer-alt"></i><span>Índice</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="profile.html"><i class="fa fa-search"></i><span>Filtrar</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href=${pageContext.request.contextPath}/Almacen?accion=IrBuscar><i class="fa fa-search"></i><span>Buscar</span></a></li>
                     <li class="nav-item"><a class="nav-link" href=${pageContext.request.contextPath}/Almacen?accion=IrAgregar><i class="fa fa-angle-double-down"></i><span>Agregar herramientas</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="fa fa-trash-o"></i><span>Delete Items</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="register.html"><i class="fa fa-list-alt"></i><span>Modify Items</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -70,7 +68,7 @@
             </nav>
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                    <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#" onClick="window.print()"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-printer-fill fa-sm text-white-50">
+                    <h3 class="text-dark mb-0">Lista de herramientas</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#" onClick="window.print()"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-printer-fill fa-sm text-white-50">
   <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5z"></path>
   <path fill-rule="evenodd" d="M11 9H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"></path>
   <path fill-rule="evenodd" d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"></path>
@@ -145,7 +143,7 @@
                                         <th>Nombre</th>
                                         <th>Categoría</th>
                                         <th>Marca</th>
-                                        <th></th
+                                        <th>Dimensión</th>
                                         <th>Unidades</th>
                                         <th></th>
                                     </tr>
@@ -183,19 +181,5 @@
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="assets/js/theme.js"></script>
-       
-    <!-- <form action="Almacen" method="GET">
-            <h2>
-                Filtrar: <input type="text" id="filtro" name="filtro">
-                <select name="tipofiltro" id="tipofiltro">
-                    <option value="nombre"> Nombre </option>
-                    <option value="categoria"> Categoría </option>
-                    <option value="marca"> Marca </option>
-                    <option value="dimesion"> Dimensión </option>
-                    <option value="unidades"> Unidades </option>
-                </select>
-                <input type="submit" value="Filtrar" name="btnfiltro">
-            </h2>
-        </form> -->
     </body> 
 </html>

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : editar
-    Created on : 28 nov. 2020, 21:47:07
+    Document   : buscar
+    Created on : 6 dic. 2020, 11:32:15
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Editar herramienta</title>
+    <title>Buscar herramientas</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -68,47 +68,82 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-1" style="font-size: 40px;text-align: center;"><strong>Editar herramienta</strong></h3>
                     <div class="row">
-                        <div class="col">
-                            <div></div>
-                        </div>
-                        <div class="col" style="background: #ffffff;border-radius: 14px;box-shadow: 0px 0px 8px;">
-                            <form action="Almacen" method="post">
-                                <h2 class="sr-only">Login Form</h2>
-                                <div class="illustration" style="margin: 0px;"><i class="la la-edit" style="font-size: 107px;color: rgb(24,22,22);display: inline-block;width: 100%;text-align: center;"></i></div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend"></div>
-                                        <div class="input-group-append"></div>
-                                    </div>
-                                </div>
-                                <input class="form-control" type="text" style="margin: 0px;margin-bottom: 10px;" name="nombre" value="${herramienta.nombre}">
-                                <input class="form-control" type="text" style="margin: 0px;margin-bottom: 10px;" name="marca" value="${herramienta.marca}">
-                                <input class="form-control" type="text" style="margin-bottom: 10px;" name="categoria" value="${herramienta.categoria}">
-                                <input class="form-control" type="text" style="margin-bottom: 10px;" name="dimension" value="${herramienta.tamano}">
-                                <input class="form-control" type="number" style="margin-bottom: 10px;" name="unidades" value="${herramienta.unidades}">
-                                <input type="hidden" name="id" value=${herramienta.id}>
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-block" name="btnmodificar" value="Modificar" type="submit" style="background: rgb(94,119,207);">Modificar</button>
-                                </div>
+                        <div class="col"><span style="font-size: 50px;"><strong>Buscar herramientas&nbsp; &nbsp;</strong></span><i class="fa fa-search" style="font-size: 56px;"></i></div>
+                    </div>
+                    <div class="card shadow">
+                        <div class="card-header py-3"><span style="font-size: 20px;"><strong>Filtrar por: &nbsp;</strong></span>
+                            <form action="Almacen" method="GET">
+                                <input type="text" id="filtro" name="filtro">
+                                <select name="tipofiltro" id="tipofiltro" style="font-family: Nunito, sans-serif;color: rgb(133,135,150);border-color: rgb(133,135,150);">
+                                    <option value="nombre"> Nombre </option>
+                                    <option value="categoria"> Categoría </option>
+                                    <option value="marca"> Marca </option>
+                                    <option value="dimesion"> Dimensión </option>
+                                    <option value="unidades"> Unidades </option>
+                                </select>
+                                <input type="submit" value="Filtrar" name="btnfiltro">
                             </form>
                         </div>
-                        <div class="col" style="border-radius: 68px;">
-                            <div></div>
-                        </div>
+                        <div
+                            class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="text-md-right dataTables_filter" id="dataTable_filter"></div><span><strong>Estás buscando por: &nbsp; &nbsp;</strong></span><span></span><span>${tipofiltro}</span><span></span><span></span></div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Categoría</th>
+                                            <th>Marca</th>
+                                            <th>Dimensión</th>
+                                            <th>Unidades</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${vectorlista}" var="herramienta">
+                                            <tr>
+                                                <td><c:out value="${herramienta.id}"/></td>
+                                                <td><c:out value="${herramienta.nombre}"/></td>
+                                                <td><c:out value="${herramienta.categoria}"/></td>
+                                                <td><c:out value="${herramienta.marca}"/></td>
+                                                <td><c:out value="${herramienta.tamano}"/></td>
+                                                <td><c:out value="${herramienta.unidades}"/></td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination"></ul>
+                                    </nav>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Página diseñada por David Lázaro, Héctor Márquez &amp; Sergio Elizondo</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
-    <div class="col">
-        <div></div>
-    </div>
+        </div>
+        <footer class="bg-white sticky-footer">
+            <div class="container my-auto">
+                <div class="text-center my-auto copyright"><span>Página diseñada por David Lázaro, Héctor Márquez &amp; Sergio Elizondo</span></div>
+            </div>
+        </footer>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>

@@ -146,6 +146,7 @@ public class Lista {
         
         try(Statement sta = cnxObtenida.createStatement()) {
             ResultSet rs = sta.executeQuery("select * from utiles where id=" + id);
+            rs.next();
             herramienta.setId(id);
             herramienta.setNombre(rs.getString("nombre"));
             herramienta.setCategoria(rs.getString("categoria"));
@@ -156,7 +157,7 @@ public class Lista {
         }
         catch(SQLException ex) {
             StackTraceElement[] pila = ex.getStackTrace();
-            System.out.println("Error al eliminar elemento: ");
+            System.out.println("Error al obtener elemento: ");
             for (StackTraceElement elem: pila) {
                 System.out.println(elem.toString());
             }

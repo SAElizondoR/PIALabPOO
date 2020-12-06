@@ -48,7 +48,10 @@ public class Almacen extends HttpServlet {
         else if (request.getParameter("btnagregar") != null) {
             accion = "Agregar";
         }
-        if (accion == null) {
+        if (request.getParameter("btnfiltro") != null) {
+            accion = "Buscar";
+        }
+        else if (accion == null) {
             accion = "Listar";
         }
         switch (accion) {
@@ -70,19 +73,18 @@ public class Almacen extends HttpServlet {
             case "Editar":
                 editarHerramientas(request, response);
                 break;
+            case "IrBuscar":
+                irBuscarHerramientas(request, response);
+                break;
+            case "Buscar":
+                buscarHerramientas(request, response);
+                break;
         }
     }
     
     private void listarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String filtro = "";
-        String tipofiltro = "";
         
-        if (request.getParameter("btnfiltro") != null) {
-            filtro = request.getParameter("filtro");
-            tipofiltro = request.getParameter("tipofiltro");
-        }
-        
-        List<Herramienta> vectorLista = lista.listar(filtro, tipofiltro);
+        List<Herramienta> vectorLista = lista.listar("", "");
         request.setAttribute("vectorlista", vectorLista);
         request.setAttribute("tamano", vectorLista.size());
         request.setAttribute("cantCategorias", lista.contar("categoria"));
@@ -116,7 +118,6 @@ public class Almacen extends HttpServlet {
     private void obtenerUnaHerramienta(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Herramienta herramienta = lista.obtenerUna(id);
-        
         request.setAttribute("herramienta", herramienta);
         RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/editar.jsp");
         desp.forward(request, response);
@@ -131,6 +132,26 @@ public class Almacen extends HttpServlet {
         int unidades = Integer.parseInt(request.getParameter("unidades"));
         lista.editar(id, nombre, categoria, marca, dimension, unidades);
         listarHerramientas(request, response);
+    }
+    
+    private void irBuscarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Herramienta> vectorLista = lista.listar("", "");
+        request.setAttribute("vectorlista", vectorLista);
+        RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/buscar.jsp");
+        desp.forward(request, response);
+    }
+    
+    private void buscarHerramientas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        String filtro = request.getParameter("filtro");
+        String tipofiltro = request.getParameter("tipofiltro");
+        
+        List<Herramienta> vectorLista = lista.listar(filtro, tipofiltro);
+        request.setAttribute("vectorlista", vectorLista);
+        request.setAttribute("tipofiltro", tipofiltro);
+        
+        RequestDispatcher desp = request.getRequestDispatcher("/WEB-INF/buscar.jsp");
+        desp.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
