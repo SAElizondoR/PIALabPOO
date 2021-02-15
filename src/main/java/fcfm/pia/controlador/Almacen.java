@@ -23,6 +23,7 @@ import javax.servlet.http.*;
 public class Almacen extends HttpServlet {
     private Lista lista;
     
+    
     @Override
     public void init() {
         lista = new Lista();
